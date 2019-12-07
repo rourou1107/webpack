@@ -1,20 +1,18 @@
-var path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const base = require('./webpack.config.base.js')
 module.exports = {
+    ...base,
     mode: 'development',
-    entry: './src/index.js', // 需要打包的js文件的路径
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'index.[contenthash].js',
+    devtool: 'inline-source-map',
+    devServer: {
+      contentBase: './dist',
     },
-    plugins: [new HtmlWebpackPlugin({
-        title: '肉肉',
-        template: 'src/assets/index.html'
-    })],
     module: {
         rules: [
             {
-                test: /\.css$/i,
+                test: /\.css$/,
                 use: ['style-loader', 'css-loader'],
             },
         ],
